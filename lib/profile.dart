@@ -1,3 +1,4 @@
+import 'package:app/signin.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -85,7 +86,7 @@ class ProfileScreen extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
-                padding: EdgeInsets.symmetric(vertical: 16),
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 60),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -97,21 +98,6 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
         ],
-      ),
-      // Bottom Navigation Bar
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Accueil'),
-          BottomNavigationBarItem(icon: Icon(Icons.money), label: 'Dépenses'),
-          BottomNavigationBarItem(icon: Icon(Icons.payment), label: 'Paiement'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: Colors.blue),
-            label: 'Profil',
-          ),
-        ],
-        currentIndex: 3, // Highlighting the Profile tab
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
       ),
     );
   }
@@ -139,7 +125,6 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  // Logout confirmation dialog
   void _showLogoutConfirmation(BuildContext context) {
     showDialog(
       context: context,
@@ -158,8 +143,10 @@ class ProfileScreen extends StatelessWidget {
               style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
               child: Text('Déconnecter'),
               onPressed: () {
-                // TODO: Implement actual logout logic
-                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
               },
             ),
           ],

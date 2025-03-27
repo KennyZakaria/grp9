@@ -121,21 +121,6 @@ class ExpenseDistributionScreen extends StatelessWidget {
           ),
         ],
       ),
-      // Bottom Navigation Bar
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Accueil'),
-          BottomNavigationBarItem(icon: Icon(Icons.money), label: 'Dépenses'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.payment, color: Colors.blue),
-            label: 'Paiement',
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
-        ],
-        currentIndex: 2, // Highlighting the Payment tab
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-      ),
     );
   }
 

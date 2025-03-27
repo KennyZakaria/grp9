@@ -126,18 +126,6 @@ class _NewExpenseScreenState extends State<NewExpenseScreen> {
           ],
         ),
       ),
-      // Bottom Navigation Bar
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Accueil'),
-          BottomNavigationBarItem(icon: Icon(Icons.money), label: 'Dépenses'),
-          BottomNavigationBarItem(icon: Icon(Icons.payment), label: 'Paiement'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
-        ],
-        currentIndex: 1, // Highlighting the Expenses tab
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-      ),
     );
   }
 

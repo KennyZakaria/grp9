@@ -1,6 +1,31 @@
+import 'package:app/home.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  isCredentialsCorrect() {
+    return emailController.text == 'admin' &&
+        passwordController.text == 'admin';
+  }
+
+  login(context) {
+    if (isCredentialsCorrect()) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MainScreen()),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Mauvais nom d’utilisateur ou mot de passe'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +46,7 @@ class LoginScreen extends StatelessWidget {
             ),
             SizedBox(height: 20),
             TextField(
+              controller: emailController,
               decoration: InputDecoration(
                 labelText: 'Email',
                 border: OutlineInputBorder(),
@@ -29,6 +55,7 @@ class LoginScreen extends StatelessWidget {
             SizedBox(height: 15),
             TextField(
               obscureText: true,
+              controller: passwordController,
               decoration: InputDecoration(
                 labelText: 'Mot de passe',
                 border: OutlineInputBorder(),
@@ -48,7 +75,7 @@ class LoginScreen extends StatelessWidget {
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () => login(context),
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                 child: Text('Log In', style: TextStyle(color: Colors.white)),
               ),
@@ -76,15 +103,6 @@ class LoginScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 3, // Assuming 'Profile' is the fourth item
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Accueil'),
-          BottomNavigationBarItem(icon: Icon(Icons.receipt), label: 'Dépenses'),
-          BottomNavigationBarItem(icon: Icon(Icons.payment), label: 'Paiement'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
-        ],
       ),
     );
   }
