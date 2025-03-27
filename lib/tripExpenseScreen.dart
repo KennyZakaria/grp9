@@ -4,17 +4,9 @@ class TripExpensesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: Text('Détails de Voyage', style: TextStyle(fontSize: 18)),
-      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Trip Info Header
           Container(
             padding: EdgeInsets.all(16),
             color: Colors.blue[50],
@@ -39,7 +31,6 @@ class TripExpensesScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 16),
-                    // Placeholder for user avatars
                     Stack(
                       children: [
                         CircleAvatar(
@@ -67,8 +58,6 @@ class TripExpensesScreen extends StatelessWidget {
               ],
             ),
           ),
-
-          // Expenses Section
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
@@ -79,9 +68,7 @@ class TripExpensesScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 TextButton(
-                  onPressed: () {
-                    // TODO: Implement view all expenses
-                  },
+                  onPressed: () {},
                   child: Text(
                     'Voir tout',
                     style: TextStyle(color: Colors.blue),
@@ -91,7 +78,6 @@ class TripExpensesScreen extends StatelessWidget {
             ),
           ),
 
-          // Expense Items
           ExpenseItemTile(
             icon: Icons.restaurant,
             title: 'Restaurant',
@@ -107,13 +93,10 @@ class TripExpensesScreen extends StatelessWidget {
 
           Spacer(),
 
-          // Add Expense Button
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
-              onPressed: () {
-                // TODO: Implement add expense functionality
-              },
+              onPressed: () {},
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 padding: EdgeInsets.symmetric(vertical: 16),

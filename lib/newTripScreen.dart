@@ -28,7 +28,6 @@ class _NewTripScreenState extends State<NewTripScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: BackButton(), title: Text('Nouveau Voyage')),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(

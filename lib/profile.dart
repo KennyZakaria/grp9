@@ -5,9 +5,6 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Profil & Paramètres', style: TextStyle(fontSize: 18)),
-      ),
       body: Column(
         children: [
           // User Profile Section
@@ -15,22 +12,18 @@ class ProfileScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                // Profile Picture
                 CircleAvatar(
                   radius: 60,
                   backgroundImage: NetworkImage(
-                    'https://randomuser.me/api/portraits/men/1.jpg', // Placeholder image
+                    'https://randomuser.me/api/portraits/men/1.jpg',
                   ),
                 ),
                 SizedBox(height: 16),
-
-                // User Name
                 Text(
                   'El berhichi Aissam',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
 
-                // User Email
                 Text(
                   'aissamelberhichi@gmail.com',
                   style: TextStyle(color: Colors.grey),
@@ -39,7 +32,6 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
 
-          // Preferences Section
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
@@ -50,25 +42,19 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 16),
 
-                // Personal Information
                 _buildSettingsRow(
                   context,
                   icon: Icons.person,
                   title: 'Informations personnelles',
-                  onTap: () {
-                    // TODO: Navigate to personal information screen
-                  },
+                  onTap: () {},
                 ),
 
-                // Currency
                 _buildSettingsRow(
                   context,
                   icon: Icons.currency_exchange,
                   title: 'Devise',
                   trailing: Text('MAD', style: TextStyle(color: Colors.grey)),
-                  onTap: () {
-                    // TODO: Open currency selection
-                  },
+                  onTap: () {},
                 ),
               ],
             ),
@@ -76,12 +62,10 @@ class ProfileScreen extends StatelessWidget {
 
           Spacer(),
 
-          // Logout Button
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
               onPressed: () {
-                // TODO: Implement logout functionality
                 _showLogoutConfirmation(context);
               },
               style: ElevatedButton.styleFrom(
@@ -102,7 +86,6 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  // Helper method to build settings row
   Widget _buildSettingsRow(
     BuildContext context, {
     required IconData icon,

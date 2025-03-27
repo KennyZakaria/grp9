@@ -1,22 +1,11 @@
+import 'package:app/newTripScreen.dart';
+import 'package:app/profile.dart';
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Tableau de bord'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications_outlined),
-            onPressed: () {},
-          ),
-          CircleAvatar(
-            backgroundImage: NetworkImage('https://via.placeholder.com/150'),
-          ),
-          SizedBox(width: 10),
-        ],
-      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
@@ -30,11 +19,20 @@ class DashboardScreen extends StatelessWidget {
                   'Voyages en cours',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                TextButton(onPressed: () {}, child: Text('Ajouter')),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => NewTripScreen()),
+                    );
+                  },
+                  child: Text('Ajouter'),
+                ),
               ],
             ),
             TravelCard('Week-end Taghazout', '4-6 Mars 2025', '850 DH'),
             TravelCard('Week-end Tanger', '10-12 Juin 2025', '850 DH'),
+            TravelCard('Week-end Taghazout', '4-6 Mars 2025', '850 DH'),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
