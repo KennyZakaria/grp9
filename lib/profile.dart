@@ -1,7 +1,27 @@
+import 'dart:convert';
+
+import 'package:app/models/User.dart';
+import 'package:app/services/authService.dart';
+import 'package:app/services/httpService.dart';
 import 'package:app/signin.dart';
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  User? userProfile;
+  String fullName = '';
+  @override
+  void initState() {
+    super.initState();
+    userProfile = AuthService.getCurrentUser() as User?;
+    fullName = userProfile!.lName + ' ' + userProfile!.fName;
+  }
+
+  AuthService authService = AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,12 +40,12 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 16),
                 Text(
-                  'El berhichi Aissam',
+                  fullName,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
 
                 Text(
-                  'aissamelberhichi@gmail.com',
+                  userProfile?.login ?? '',
                   style: TextStyle(color: Colors.grey),
                 ),
               ],
@@ -70,7 +90,7 @@ class ProfileScreen extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 60),
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 120),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -119,7 +139,8 @@ class ProfileScreen extends StatelessWidget {
             TextButton(
               child: Text('Annuler'),
               onPressed: () {
-                Navigator.of(context).pop();
+                AuthService.logout();
+                // Navigator.of(context).pop();
               },
             ),
             ElevatedButton(

@@ -1,0 +1,112 @@
+{
+  "users": [
+    {
+      "fName": "zakaria",
+      "lName": "jounir",
+      "login": "jounir",
+      "password": "1234"
+    },  
+
+    {
+      "fName": "soufian",
+      "lName": "soufian",
+      "login": "soufian@gmail.com",
+      "password": "1234"
+    },
+    {
+      "fName": "aissam",
+      "lName": "aissam",
+      "login": "aissam@gmail.com",
+      "password": "1234"
+    },
+    {
+      "fName": "bader",
+      "lName": "bader",
+      "login": "bader@gmail.com",
+      "password": "1234"
+    }
+  ],
+  "depenses": [
+    {
+      "name": "Restaurant",
+      "paidBy": "jounir",
+      "price": "200"
+    },
+    {
+      "name": "Taxi",
+      "paidBy": "bader",
+      "price": "450"
+    },
+    {
+      "name": "Taxi",
+      "paidBy": "bader",
+      "price": "450"
+    },
+    {
+      "name": "Taxi",
+      "paidBy": "bader",
+      "price": "450"
+    },
+    {
+      "name": "Taxi",
+      "paidBy": "bader",
+      "price": "450"
+    },
+    {
+      "id": "ae4d",
+      "name": "tram",
+      "paidBy": "Jounir",
+      "price": "84.50"
+    },
+    {
+      "id": "63bb",
+      "name": "WFEEW",
+      "paidBy": "Jounir",
+      "price": "9895"
+    }
+  ],
+  "travel": [
+    {
+      "city": "Taghazout",
+      "date": "4-6 Mars 2025",
+      "price": "850"
+    },
+    {
+      "city": "Marrakech",
+      "date": "10-12 Juin 2025",
+      "price": "650"
+    },
+    {
+      "city": "tanger",
+      "date": "10-12 Juin 2025",
+      "price": "400"
+    },
+    {
+      "id": "388a",
+      "city": "Tiji",
+      "date": "2025-03-29 13:42:01.501",
+      "price": "333"
+    },
+    {
+      "id": "001a",
+      "city": "toubkal",
+      "date": "2025-03-29 13:46:30.053",
+      "price": "333",
+      "participants": [
+        "Aissam",
+        "Zakaria"
+      ]
+    },
+    {
+      "id": "7550",
+      "city": "TIZNIN",
+      "date": "2025-03-29 14:09:18.378",
+      "price": "333",
+      "participants": [
+        "Aissam",
+        "Badr",
+        "Zakaria"
+      ]
+    }
+  ]
+}

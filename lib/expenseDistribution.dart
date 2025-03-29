@@ -1,12 +1,44 @@
+import 'package:app/models/Depense.dart';
+import 'package:app/models/User.dart';
+import 'package:app/services/authService.dart';
+import 'package:app/services/authService.dart';
+import 'package:app/services/httpService.dart';
 import 'package:flutter/material.dart';
 
-class ExpenseDistributionScreen extends StatelessWidget {
+class ExpenseDistributionScreen extends StatefulWidget {
+  const ExpenseDistributionScreen({Key? key}) : super(key: key);
+  @override
+  State<ExpenseDistributionScreen> createState() =>
+      _ExpenseDistributionScreenState();
+}
+
+class _ExpenseDistributionScreenState extends State<ExpenseDistributionScreen> {
+  HttpService httpService = HttpService();
+  AuthService authService = AuthService();
+  User? userProfile;
+  List<Depense> paidByOthers = [];
+  double totalPaidByUser = 0.0;
+  double totalPaidByOthers = 0.0;
+  @override
+  void initState() {
+    super.initState();
+    userProfile = AuthService.getCurrentUser() as User?;
+    httpService
+        .getTotalPaidByUser(userProfile!.fName)
+        .then((value) => setState(() => totalPaidByUser = value));
+    httpService
+        .getTotalPaidByOthers(userProfile!.fName)
+        .then((value) => setState(() => totalPaidByOthers = value));
+    httpService
+        .getDepensesPaidByOthers(userProfile!.fName)
+        .then((value) => setState(() => paidByOthers = value));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          // Total Balance Section
           Container(
             margin: EdgeInsets.all(16),
             padding: EdgeInsets.all(16),
@@ -46,7 +78,7 @@ class ExpenseDistributionScreen extends StatelessWidget {
                               style: TextStyle(color: Colors.green),
                             ),
                             Text(
-                              '557.50 dh',
+                              '${totalPaidByUser.toStringAsFixed(2)} dh',
                               style: TextStyle(
                                 color: Colors.green,
                                 fontWeight: FontWeight.bold,
@@ -57,7 +89,6 @@ class ExpenseDistributionScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 16),
-                    // To Pay Section
                     Expanded(
                       child: Container(
                         padding: EdgeInsets.all(8),
@@ -72,7 +103,7 @@ class ExpenseDistributionScreen extends StatelessWidget {
                               style: TextStyle(color: Colors.red),
                             ),
                             Text(
-                              '200.00 dh',
+                              '${totalPaidByOthers.toStringAsFixed(2)} dh',
                               style: TextStyle(
                                 color: Colors.red,
                                 fontWeight: FontWeight.bold,
@@ -98,16 +129,20 @@ class ExpenseDistributionScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 16),
-                _buildTransactionItem(
-                  name: 'Badr',
-                  amount: '150.00 dh',
-                  owedTo: 'Aissam',
-                ),
-                SizedBox(height: 16),
-                _buildTransactionItem(
-                  name: 'Zakaria',
-                  amount: '207.50 dh',
-                  owedTo: 'Aissam',
+                Container(
+                  child: Column(
+                    children:
+                        paidByOthers
+                            .map(
+                              (depense) => _buildTransactionItem(
+                                name: depense.paidBy,
+                                amount:
+                                    '${(double.parse(depense.price) / 4).toStringAsFixed(2)} dh',
+                                owedTo: userProfile!.fName,
+                              ),
+                            )
+                            .toList(),
+                  ),
                 ),
               ],
             ),
@@ -150,13 +185,12 @@ class ExpenseDistributionScreen extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
+            child: Column(
               children: [
-                Expanded(
+                Container(
+                  width: 400,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // TODO: Implement mark as reimbursed
-                    },
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       shape: RoundedRectangleBorder(
@@ -166,12 +200,11 @@ class ExpenseDistributionScreen extends StatelessWidget {
                     child: Text('Marquer comme remboursé'),
                   ),
                 ),
-                SizedBox(width: 16),
-                Expanded(
+                SizedBox(height: 8),
+                Container(
+                  width: 400,
                   child: OutlinedButton.icon(
-                    onPressed: () {
-                      // TODO: Implement send reminder
-                    },
+                    onPressed: () {},
                     icon: Icon(Icons.send, size: 16),
                     label: Text('Envoyer un rappel'),
                     style: OutlinedButton.styleFrom(

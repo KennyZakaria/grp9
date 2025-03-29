@@ -1,17 +1,36 @@
 import 'package:app/home.dart';
+import 'package:app/services/authService.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  isCredentialsCorrect() {
-    return emailController.text == 'admin' &&
-        passwordController.text == 'admin';
-  }
+  final AuthService authService = AuthService();
 
-  login(context) {
-    if (isCredentialsCorrect()) {
+  login(context) async {
+    // AuthService.login(emailController.text, passwordController.text).then((
+    //   value,
+    // ) {
+    //   if (value['success']) {
+    //     Navigator.push(
+    //       context,
+    //       MaterialPageRoute(builder: (context) => MainScreen()),
+    //     );
+    //   } else {
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       SnackBar(
+    //         content: Text(value['message']),
+    //         backgroundColor: Colors.redAccent,
+    //       ),
+    //     );
+    //   }
+    // });
+    final result = await AuthService.login(
+      emailController.text,
+      passwordController.text,
+    );
+    if (result['success']) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => MainScreen()),
@@ -19,7 +38,7 @@ class LoginScreen extends StatelessWidget {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Mauvais nom d’utilisateur ou mot de passe'),
+          content: Text(result['message']),
           backgroundColor: Colors.redAccent,
         ),
       );

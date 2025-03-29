@@ -1,3 +1,8 @@
+import 'package:app/dashboard.dart';
+import 'package:app/home.dart';
+import 'package:app/models/Depense.dart';
+import 'package:app/models/Travel.dart';
+import 'package:app/services/httpService.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -7,13 +12,31 @@ class NewExpenseScreen extends StatefulWidget {
 }
 
 class _NewExpenseScreenState extends State<NewExpenseScreen> {
+  HttpService httpService = HttpService();
   final _expenseNameController = TextEditingController();
   final _amountController = TextEditingController();
 
-  String? _selectedPayer = 'Aissam';
+  String? _selectedPayer = 'Jounir';
   DateTime _selectedDate = DateTime(2025, 2, 20);
 
-  final List<String> _payers = ['Aissam', 'Badr', 'Autre'];
+  final List<String> _payers = ['Aissam', 'Badr', 'Zakaria', 'Soufian'];
+
+  Future<void> createDepense() async {
+    await httpService
+        .addDepense(
+          Depense(
+            name: _expenseNameController.text,
+            paidBy: _selectedPayer!,
+            price: _amountController.text,
+          ),
+        )
+        .then(
+          (value) => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MainScreen()),
+          ),
+        );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,9 +131,8 @@ class _NewExpenseScreenState extends State<NewExpenseScreen> {
 
             Spacer(),
 
-            // Validate Button
             ElevatedButton(
-              onPressed: _validateExpense,
+              onPressed: createDepense,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 padding: EdgeInsets.symmetric(vertical: 16),
@@ -144,7 +166,6 @@ class _NewExpenseScreenState extends State<NewExpenseScreen> {
   }
 
   void _validateExpense() {
-    // TODO: Implement expense validation and saving logic
     print('Expense Name: ${_expenseNameController.text}');
     print('Amount: ${_amountController.text}');
     print('Payer: $_selectedPayer');

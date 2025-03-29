@@ -1,3 +1,4 @@
+import 'package:app/newExpenseScreen.dart';
 import 'package:flutter/material.dart';
 
 class TripExpensesScreen extends StatelessWidget {
@@ -96,7 +97,12 @@ class TripExpensesScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NewExpenseScreen()),
+                );
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 padding: EdgeInsets.symmetric(vertical: 16),

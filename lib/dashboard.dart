@@ -1,8 +1,26 @@
+import 'package:app/models/Depense.dart';
+import 'package:app/models/Travel.dart';
 import 'package:app/newTripScreen.dart';
 import 'package:app/profile.dart';
+import 'package:app/services/httpService.dart';
 import 'package:flutter/material.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
+  @override
+  _DashboardScreenState createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  HttpService httpService = HttpService();
+  List<Depense> depenses = [];
+  List<Travel> travels = [];
+  @override
+  void initState() {
+    super.initState();
+    httpService.getTravels().then((value) => setState(() => travels = value));
+    httpService.getDepenses().then((value) => setState(() => depenses = value));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,10 +48,19 @@ class DashboardScreen extends StatelessWidget {
                 ),
               ],
             ),
-            TravelCard('Week-end Taghazout', '4-6 Mars 2025', '850 DH'),
-            TravelCard('Week-end Tanger', '10-12 Juin 2025', '850 DH'),
-            TravelCard('Week-end Taghazout', '4-6 Mars 2025', '850 DH'),
-            SizedBox(height: 20),
+            Container(
+              height: 220,
+              child: ListView.builder(
+                itemCount: travels.length,
+                itemBuilder: (context, index) {
+                  return TravelCard(
+                    travels[index].city,
+                    travels[index].date,
+                    travels[index].price,
+                  );
+                },
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -44,27 +71,42 @@ class DashboardScreen extends StatelessWidget {
                 TextButton(onPressed: () {}, child: Text('Voir tout')),
               ],
             ),
-            ExpenseCard(
-              Icons.person,
-              'Restaurant',
-              'Payé par Aissam',
-              '200 dh',
-              Colors.blueAccent,
+            Container(
+              height: 220,
+              child: ListView.builder(
+                itemCount: depenses.length,
+                itemBuilder: (context, index) {
+                  return ExpenseCard(
+                    Icons.person,
+                    depenses[index].name,
+                    'Payé par ${depenses[index].paidBy}',
+                    '${depenses[index].price} dh',
+                    Colors.blueAccent,
+                  );
+                },
+              ),
             ),
-            ExpenseCard(
-              Icons.taxi_alert,
-              'Taxi',
-              'Payé par Badr',
-              '45 dh',
-              Colors.green,
-            ),
-            ExpenseCard(
-              Icons.person,
-              'Hotel',
-              'Payé par Badr',
-              '1045 dh',
-              Colors.purple,
-            ),
+            // ExpenseCard(
+            //   Icons.person,
+            //   'Restaurant',
+            //   'Payé par Aissam',
+            //   '200 dh',
+            //   Colors.blueAccent,
+            // ),
+            // ExpenseCard(
+            //   Icons.taxi_alert,
+            //   'Taxi',
+            //   'Payé par Badr',
+            //   '45 dh',
+            //   Colors.green,
+            // ),
+            // ExpenseCard(
+            //   Icons.person,
+            //   'Hotel',
+            //   'Payé par Badr',
+            //   '1045 dh',
+            //   Colors.purple,
+            // ),
           ],
         ),
       ),
@@ -112,10 +154,7 @@ class ExpenseCard extends StatelessWidget {
     return Card(
       elevation: 2,
       child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: iconColor.withOpacity(0.2),
-          // child: FaIcon(icon, color: iconColor),
-        ),
+        leading: CircleAvatar(backgroundColor: iconColor.withOpacity(0.2)),
         title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
         subtitle: Text(subtitle),
         trailing: Text(amount, style: TextStyle(fontWeight: FontWeight.bold)),
